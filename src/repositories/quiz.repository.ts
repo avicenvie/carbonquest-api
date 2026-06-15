@@ -95,18 +95,7 @@ export class QuizRepository {
   }
 
   async delete(id: number): Promise<void> {
-    const answers = await prisma.answers.findMany({
-      where: { question: { id_quiz: id } },
-      select: { id_answer: true },
-    });
-    const answerIds = answers.map((a) => a.id_answer);
-
-    await prisma.$transaction([
-      prisma.sessions.deleteMany({
-        where: { id_answer: { in: answerIds } },
-      }),
-      prisma.quizzes.delete({ where: { id_quiz: id } }),
-    ]);
+    await prisma.quizzes.delete({ where: { id_quiz: id } });
   }
 
   async getQuestionCount(id_quiz: number): Promise<number> {
@@ -281,9 +270,6 @@ export class QuizRepository {
   ): Promise<void> {
     const toDelete = existing.filter((id) => !updated.includes(id));
     if (toDelete.length > 0) {
-      await prisma.sessions.deleteMany({
-        where: { id_answer: { in: toDelete } },
-      });
       await prisma.answers.deleteMany({
         where: { id_answer: { in: toDelete } },
       });

@@ -85,11 +85,11 @@ model Sessions {
   session_type String?  @db.VarChar(50) // 'quiz' atau 'other'
 
   id_user   Int
-  id_answer Int
+  id_answer Int?
   id_quiz   Int?
 
   user   Users    @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
-  answer Answers  @relation(fields: [id_answer], references: [id_answer], onDelete: Cascade)
+  answer Answers? @relation(fields: [id_answer], references: [id_answer], onDelete: SetNull)
   quiz   Quizzes? @relation(fields: [id_quiz], references: [id_quiz], onDelete: SetNull)
 
   @@map("Sessions")
@@ -118,13 +118,13 @@ model Missions {
 model User_Missions {
   id_working     Int      @id @default(autoincrement())
   id_user        Int
-  id_mission     Int
+  id_mission     Int?
   status         String?  @db.VarChar(100)
   points         Int?
   completed_time DateTime?
 
   user    Users    @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
-  mission Missions @relation(fields: [id_mission], references: [id_mission], onDelete: Cascade)
+  mission Missions? @relation(fields: [id_mission], references: [id_mission], onDelete: SetNull)
 
   @@map("User_Missions")
 }
