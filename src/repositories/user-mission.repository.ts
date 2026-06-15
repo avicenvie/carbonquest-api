@@ -18,7 +18,7 @@ export class UserMissionRepository {
 
   async update(
     id: number,
-    data: Partial<UserMissionDTO>
+    data: { status?: string; points?: number; completed_time?: Date | null }
   ): Promise<UserMissionDTO> {
     return await prisma.user_Missions.update({
       where: { id_working: id },

@@ -94,7 +94,7 @@ export interface CreateMissionDTO {
 export interface UserMissionDTO {
   id_working: number;
   id_user: number;
-  id_mission: number;
+  id_mission: number | null;
   status?: string | null;
   points?: number | null;
   completed_time?: Date | null;
@@ -197,7 +197,7 @@ export interface SessionDTO {
   total_points?: number | null;
   session_type?: string | null;
   id_user: number;
-  id_answer: number;
+  id_answer: number | null;
   id_quiz?: number | null;
 }
 
