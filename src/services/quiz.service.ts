@@ -95,11 +95,17 @@ export class QuizService {
     }
 
     if (range && limitMessage) {
-      const alreadyAnswered = await this.sessionRepository.hasAnsweredQuizQuestionInRange(
+      const quizId = answer.question.quiz?.id_quiz;
+      const totalQuestions = quizId
+        ? await this.repository.getQuestionCount(quizId)
+        : 0;
+
+      const alreadyAnswered = await this.sessionRepository.hasCompletedQuizInRange(
         userId,
-        data.id_question,
+        quizId!,
         range.start,
-        range.end
+        range.end,
+        totalQuestions
       );
 
       if (alreadyAnswered) {
