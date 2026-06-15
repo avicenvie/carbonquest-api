@@ -30,6 +30,9 @@ services:
     container_name: carbonquest-tunnel
     platform: linux/arm64
     command: tunnel run
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     environment:
       - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
     restart: unless-stopped

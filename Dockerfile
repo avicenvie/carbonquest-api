@@ -18,4 +18,4 @@ RUN npm run build
 
 EXPOSE 4000
 
-CMD ["pm2-runtime", "dist/server.js", "-i", "max"]
+CMD npx prisma migrate deploy && pm2-runtime dist/server.js -i max
