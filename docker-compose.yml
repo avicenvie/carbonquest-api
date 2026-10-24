@@ -2,8 +2,6 @@ services:
   app:
     build:
       context: .
-      platforms:
-        - linux/arm64
     container_name: carbonquest-api
     env_file:
       - .env
@@ -28,7 +26,6 @@ services:
   tunnel:
     image: cloudflare/cloudflared:latest
     container_name: carbonquest-tunnel
-    platform: linux/arm64
     command: tunnel run
     dns:
       - 8.8.8.8
@@ -42,7 +39,6 @@ services:
   db:
     image: postgres:16-alpine
     container_name: carbonquest-db
-    platform: linux/arm64
     environment:
       POSTGRES_USER: ${DB_USER:-carbonquest}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}

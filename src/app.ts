@@ -47,7 +47,7 @@ export const createApp = (): Application => {
    *                       type: string
    *                       example: Gamification API OK
    */
-  app.get("/", (_req: Request, res: Response) => {
+  app.get(["/", "/api/health"], (_req: Request, res: Response) => {
     res.json({
       success: true,
       message: "Gamification API OK",
