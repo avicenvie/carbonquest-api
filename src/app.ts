@@ -1,6 +1,6 @@
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
-import swaggerUi from "swagger-ui-express";
+import { apiReference } from "@scalar/express-api-reference";
 import { swaggerSpec } from "./config/swagger.js";
 import { errorHandler } from "./middleware/error.middleware.js";
 import { authLimiter, limiter } from "./middleware/rate-limit.middleware.js";
@@ -54,12 +54,17 @@ export const createApp = (): Application => {
     });
   });
 
+  app.get("/openapi.json", (_req: Request, res: Response) => {
+    res.json(swaggerSpec);
+  });
+
   app.use(
     "/docs",
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerSpec, {
-      explorer: true,
-      customSiteTitle: "CarbonQuest API Documentation",
+    apiReference({
+      pageTitle: "CarbonQuest API Documentation",
+      spec: {
+        content: swaggerSpec,
+      },
     })
   );
 

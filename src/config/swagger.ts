@@ -14,9 +14,13 @@ const options: swaggerJsdoc.Options = {
     },
     servers: [
       {
-        url: "https://carbonquest-api.bintangap.my.id",
-        description: "Development server",
+        url: `http://localhost:${process.env.PORT || 4000}`,
+        description: "Local development server",
       },
+      // {
+      //   url: "https://your-production-url.com",
+      //   description: "Production server",
+      // },
     ],
     components: {
       securitySchemes: {
@@ -117,7 +121,10 @@ const options: swaggerJsdoc.Options = {
             id_answer: { type: "integer" },
             id_question: { type: "integer" },
             content: { type: "string" },
-            points: { type: "integer", description: "Point value for this answer" },
+            points: {
+              type: "integer",
+              description: "Point value for this answer",
+            },
           },
         },
         Quiz: {
@@ -193,7 +200,8 @@ const options: swaggerJsdoc.Options = {
                         points: {
                           type: "integer",
                           example: 10,
-                          description: "Point value for this answer (default: 0)",
+                          description:
+                            "Point value for this answer (default: 0)",
                         },
                       },
                     },
